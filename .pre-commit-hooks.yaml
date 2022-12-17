@@ -2,7 +2,7 @@
     name: Powershell lint with PSScriptAnalyzer
     description: This runs PSScriptAnalyzer on your powershell files
     entry: pre-commit powershell_scriptanalyzer
-    language: powershell
+    language: script
     files: ^.*\.ps1$
     types: [text]
     entry: pwsh -Command "Invoke-ScriptAnalyzer -Settings PSGallery -Recurse -ReportSummary -Path ."
