@@ -21,10 +21,14 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Manually install module from PSGallery
+      - name: Install dependencies
+        run: |
+          which pwsh
+      - name: Install module from PSGallery
         shell: pwsh
         run: |
-          Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSScriptAnalyzer -ErrorAction Stop
       - uses: pre-commit/action@v2.0.0
         with:
           extra_args: --all-files --show-diff-on-failure
