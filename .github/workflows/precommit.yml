@@ -1,0 +1,30 @@
+---
+name: precommit
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Manually install module from PSGallery
+        shell: pwsh
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Repository PSGallery -Force
+      - uses: pre-commit/action@v2.0.0
+        with:
+          extra_args: --all-files --show-diff-on-failure
